@@ -24,11 +24,19 @@ libraryDependencies ++= {
   val scalaTestVersion = "3.0.5"
   val scalaMockVersion = "3.6.0"
   val jacksonVersion = "2.9.8"
+  val akkaHttpVersion = "10.1.7"
+  val akkaVersion = "2.5.19"
   Seq(
     "com.fasterxml.jackson.datatype" % "jackson-datatype-jsr310" % jacksonVersion,
-    "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion,    
+    "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion,
     "org.scalatest" %% "scalatest" % scalaTestVersion % Test,
     "org.scalamock" %% "scalamock-scalatest-support" % scalaMockVersion % Test,
+    "com.typesafe.akka" %% "akka-http" % akkaHttpVersion,
+    "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpVersion % Test,
+    "com.typesafe.akka" %% "akka-actor" % akkaVersion,
+    "com.typesafe.akka" %% "akka-testkit" % akkaVersion % Test,
+    "com.typesafe.akka" %% "akka-stream" % akkaVersion,
+    "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion % Test
   )
 }
 
@@ -55,7 +63,7 @@ coverageEnabled := true
 
 coverageHighlighting := true
 
-coverageMinimum := 100
+coverageMinimum := 80
 
 coverageFailOnMinimum := true
 
