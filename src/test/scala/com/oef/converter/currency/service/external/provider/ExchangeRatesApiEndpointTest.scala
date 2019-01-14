@@ -3,9 +3,11 @@ package com.oef.converter.currency.service.external.provider
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Currency
+
 import com.oef.converter.UnitSpec
 import com.oef.converter.config.Configuration
-import com.oef.converter.currency.service.external.exception.CurrencyApiException
+import com.oef.converter.currency.service.external.exception.RatesApiException
+import com.oef.converter.currency.service.external.provider.era.ExchangeRatesApiEndpoint
 
 class ExchangeRatesApiEndpointTest extends UnitSpec {
   private val endpoints = new ExchangeRatesApiEndpoint()
@@ -19,7 +21,7 @@ class ExchangeRatesApiEndpointTest extends UnitSpec {
 
     "return an error for non supported currency" in {
       whenReady(endpoints.httpGet(Currency.getInstance("GBP"), Currency.getInstance("MDL")).failed) { e =>
-        e shouldBe a[CurrencyApiException]
+        e shouldBe a[RatesApiException]
       }
     }
 

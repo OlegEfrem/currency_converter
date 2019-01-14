@@ -4,6 +4,7 @@ import java.util.Currency
 
 import com.oef.converter.UnitSpec
 import com.oef.converter.currency.service.external.exception.CurrencyNotFoundException
+import com.oef.converter.currency.service.external.provider.era.{ExchangeRatesApi, ExchangeRatesApiEndpoint}
 
 import scala.concurrent.Future
 

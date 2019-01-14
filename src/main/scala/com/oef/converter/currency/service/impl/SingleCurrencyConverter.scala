@@ -1,10 +1,12 @@
-package com.oef.converter.currency.service
+package com.oef.converter.currency.service.impl
+
 import java.util.Currency
 
-import com.oef.converter.currency.CurrencyConverter
 import com.oef.converter.currency.model.{ConversionRequest, ConversionResponse}
+import com.oef.converter.currency.service.CurrencyConverter
 import com.oef.converter.currency.service.external.RatesApi
 import com.oef.converter.currency.util.ActorContext
+
 import scala.concurrent.Future
 
 class SingleCurrencyConverter(ratesApi: RatesApi) extends CurrencyConverter with ActorContext {

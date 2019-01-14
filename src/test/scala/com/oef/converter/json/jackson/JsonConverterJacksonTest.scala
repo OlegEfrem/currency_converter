@@ -6,7 +6,8 @@ import com.fasterxml.jackson.core.JsonParseException
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException
 import com.oef.converter.UnitSpec
 import com.oef.converter.config.Configuration
-import com.oef.converter.currency.model.{ConversionRequest, ConversionResponse, RatesResponse}
+import com.oef.converter.currency.model.{ConversionRequest, ConversionResponse}
+import com.oef.converter.currency.service.external.provider.era.ExchangeRatesApiResponse
 
 class JsonConverterJacksonTest extends UnitSpec {
   val jsonConverter: JsonConverterJackson.type = JsonConverterJackson
@@ -48,7 +49,7 @@ class JsonConverterJacksonTest extends UnitSpec {
     }
 
     "convert a RatesResponse json to a RatesResponse object" in {
-      jsonConverter.fromJson[RatesResponse](ratesResponseJson) shouldBe ratesResponse
+      jsonConverter.fromJson[ExchangeRatesApiResponse](ratesResponseJson) shouldBe ratesResponse
     }
 
     "throw an exception when trying to convert a ConversionRequest json to a ConversionResponse object" in {
@@ -106,7 +107,7 @@ object JsonConverterJacksonTest {
       |}
     """.stripMargin.replaceAll("""\n|\p{Blank}""", "")
 
-  val ratesResponse = RatesResponse(Map("EUR" -> 1.1202850005), "GBP", Configuration.dateFormat.parse("2019-01-14"))
+  val ratesResponse = ExchangeRatesApiResponse(Map("EUR" -> 1.1202850005), "GBP", Configuration.dateFormat.parse("2019-01-14"))
   val ratesResponseJson: String =
     """
       |{
