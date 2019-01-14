@@ -26,6 +26,10 @@ class JsonConverterJacksonTest extends UnitSpec {
       jsonConverter.jsonToMap(json1Level) should contain theSameElementsAs Map("id" -> 10001, "name" -> "Alex Smith")
     }
 
+    "return a map for a multi level json" in {
+      jsonConverter.jsonToMap(json3Levels) should contain theSameElementsAs json3LevelsMap
+    }
+
   }
 
 }
@@ -36,6 +40,19 @@ object JsonConverterJacksonTest {
   val invalidJson: InputStream = readFile("/InvalidJson")
   val json1Level: InputStream  = readFile("/1Level.json")
   val json3Levels: InputStream = readFile("/3Levels.json")
+  val json3LevelsMap: Map[String, Any] = Map(
+    "id"   -> 10001,
+    "name" -> "Alex Smith",
+    "payments" ->
+      List(Map("timestamp" -> "ISO_DATE", "amount" -> 100.59), Map("timestamp" -> "ISO_DATE", "amount" -> 12.99)),
+    "address" ->
+      Map("postcode" -> "W1 5AX",
+          "coordiantes" ->
+            Map("lat" -> 51, "lon" -> 0),
+          "country" -> "UK",
+          "second"  -> "Kings Cross",
+          "first"   -> "12 Watergarden")
+  )
 
   private def readFile(fileName: String): InputStream = getClass.getResourceAsStream(fileName)
 }
