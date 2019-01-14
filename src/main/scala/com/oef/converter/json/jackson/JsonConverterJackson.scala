@@ -13,7 +13,7 @@ import scala.collection.immutable.ListMap
 class JsonConverterJackson extends JsonConverter {
   private val mapper = new ObjectMapper() with ScalaObjectMapper
   mapper.registerModule(DefaultScalaModule)
-  mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+  mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
 
   def jsonToMap(json: InputStream): Map[String, Any] = {
     if (json.available() == 0) throw new IllegalArgumentException("Empty data is not a valid json.")
@@ -53,7 +53,7 @@ class JsonConverterJackson extends JsonConverter {
   private def arrayNodeToList(jsonNode: ArrayNode): List[Any] = {
     jsonNode.iterator().asScala.map(nodeToAny).toList
   }
-  override def fromJson[ToType <: Manifest[ToType]](json: String): ToType = {
+  override def fromJson[ToType](json: String)(implicit m: Manifest[ToType]): ToType = {
     mapper.readValue[ToType](json)
   }
 

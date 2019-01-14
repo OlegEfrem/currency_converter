@@ -1,7 +1,7 @@
 package com.oef.converter.json.jackson
 import java.io.InputStream
-
 import com.fasterxml.jackson.core.JsonParseException
+import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException
 import com.oef.converter.UnitSpec
 import com.oef.converter.currency.model.{ConversionRequest, ConversionResponse}
 
@@ -40,15 +40,23 @@ class JsonConverterJacksonTest extends UnitSpec {
       jsonConverter.fromJson[ConversionRequest](conversionRequestJson) shouldBe conversionRequest
     }
 
-    "convert a ConversionResponse json to ConversionResponse" in {}
+    "convert a ConversionResponse json to ConversionResponse" in {
+      jsonConverter.fromJson[ConversionResponse](conversionResponseJson) shouldBe conversionResponse
+    }
 
-    "throw an exception when trying to convert a ConversionRequest json to a ConversionResponse object" in {}
+    "throw an exception when trying to convert a ConversionRequest json to a ConversionResponse object" in {
+      an[UnrecognizedPropertyException] should be thrownBy jsonConverter.fromJson[ConversionResponse](conversionRequestJson)
+    }
   }
 
   "toJson should" - {
-    "convert a ConversionRequest to json" in {}
+    "convert a ConversionRequest to json" in {
+      jsonConverter.toJson(conversionRequest) shouldBe conversionRequestJson
+    }
 
-    "convert a ConversionResponse to json" in {}
+    "convert a ConversionResponse to json" in {
+      jsonConverter.toJson(conversionResponse) shouldBe conversionResponseJson
+    }
   }
 
 }
@@ -77,9 +85,10 @@ object JsonConverterJacksonTest {
     """
       |{
       |"fromCurrency": "GBP",
-      |"toCurrency" : "EUR","amount" : 102.6
+      |"toCurrency" : "EUR",
+      |"amount" : 102.6
       |}
-    """.stripMargin
+    """.stripMargin.replaceAll("""\n|\p{Blank}""", "")
   val conversionResponse: ConversionResponse = ConversionResponse(1.11, 113.886, 102.6)
   val conversionResponseJson: String =
     """
@@ -88,7 +97,7 @@ object JsonConverterJacksonTest {
       |"amount" : 113.886,
       |"original" : 102.6
       |}
-    """.stripMargin
+    """.stripMargin.replaceAll("""\n|\p{Blank}""", "")
 
   private def readFile(fileName: String): InputStream = getClass.getResourceAsStream(fileName)
 }
