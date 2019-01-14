@@ -1,18 +1,21 @@
 package com.oef.converter.json.jackson
 
 import java.io.InputStream
+
 import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.{DeserializationFeature, JsonNode, ObjectMapper}
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
+import com.oef.converter.currency.util.Configuration
 import com.oef.converter.json.JsonConverter
 import scala.annotation.tailrec
 import scala.collection.JavaConverters._
 import scala.collection.immutable.ListMap
 
-class JsonConverterJackson extends JsonConverter {
+object JsonConverterJackson extends JsonConverter {
   private val mapper = new ObjectMapper() with ScalaObjectMapper
   mapper.registerModule(DefaultScalaModule)
+  mapper.setDateFormat(Configuration.dateFormat)
   mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
 
   def jsonToMap(json: InputStream): Map[String, Any] = {
