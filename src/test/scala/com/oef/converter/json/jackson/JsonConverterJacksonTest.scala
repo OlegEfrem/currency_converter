@@ -9,6 +9,7 @@ class JsonConverterJacksonTest extends UnitSpec {
     import JsonConverterJacksonTest._
 
     "return empty for an empty json" in {
+      val is = emptyJson
       jsonConverter.jsonToMap(emptyJson) shouldBe Map()
     }
 
@@ -21,10 +22,10 @@ class JsonConverterJacksonTest extends UnitSpec {
 }
 
 object JsonConverterJacksonTest {
-  val emptyJson: InputStream   = readFile("Empty.json")
-  val emptyFile: InputStream   = readFile("EmptyFile")
-  val invalidJson: InputStream = readFile("InvalidJson")
-  val validJson: InputStream   = readFile("3Level.json")
+  val emptyJson: InputStream   = readFile("/Empty.json")
+  val emptyFile: InputStream   = readFile("/EmptyFile")
+  val invalidJson: InputStream = readFile("/InvalidJson")
+  val validJson: InputStream   = readFile("/3Levels.json")
 
   private def readFile(fileName: String): InputStream = getClass.getResourceAsStream(fileName)
 }
