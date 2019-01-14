@@ -1,14 +1,15 @@
 package com.oef.converter.json.jackson
 
 import java.io.InputStream
+
 import com.fasterxml.jackson.core.JsonParseException
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException
 import com.oef.converter.UnitSpec
+import com.oef.converter.config.Configuration
 import com.oef.converter.currency.model.{ConversionRequest, ConversionResponse, RatesResponse}
-import com.oef.converter.currency.util.Configuration
 
 class JsonConverterJacksonTest extends UnitSpec {
-  val jsonConverter = JsonConverterJackson
+  val jsonConverter: JsonConverterJackson.type = JsonConverterJackson
   import JsonConverterJacksonTest._
 
   "jsonToMap should" - {
@@ -68,11 +69,11 @@ class JsonConverterJacksonTest extends UnitSpec {
 }
 
 object JsonConverterJacksonTest {
-  val emptyJson: InputStream   = readFile("/Empty.json")
-  val emptyFile: InputStream   = readFile("/EmptyFile")
-  val invalidJson: InputStream = readFile("/InvalidJson")
-  val json1Level: InputStream  = readFile("/1Level.json")
-  val json3Levels: InputStream = readFile("/3Levels.json")
+  val emptyJson: InputStream   = readFile("/json/Empty.json")
+  val emptyFile: InputStream   = readFile("/json/EmptyFile")
+  val invalidJson: InputStream = readFile("/json/InvalidJson")
+  val json1Level: InputStream  = readFile("/json/1Level.json")
+  val json3Levels: InputStream = readFile("/json/3Levels.json")
   val json3LevelsMap: Map[String, Any] = Map(
     "id"   -> 10001,
     "name" -> "Alex Smith",
