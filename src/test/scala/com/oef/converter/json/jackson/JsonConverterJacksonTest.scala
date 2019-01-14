@@ -3,11 +3,13 @@ import java.io.InputStream
 
 import com.fasterxml.jackson.core.JsonParseException
 import com.oef.converter.UnitSpec
+import com.oef.converter.currency.model.{ConversionRequest, ConversionResponse}
 
 class JsonConverterJacksonTest extends UnitSpec {
+  val jsonConverter = new JsonConverterJackson
+  import JsonConverterJacksonTest._
+
   "jsonToMap should" - {
-    val jsonConverter = new JsonConverterJackson
-    import JsonConverterJacksonTest._
 
     "return empty for an empty json" in {
       val is = emptyJson
@@ -32,6 +34,23 @@ class JsonConverterJacksonTest extends UnitSpec {
 
   }
 
+  "fromJson should" - {
+
+    "convert a ConversionRequest json to a ConversionRequest object " in {
+      jsonConverter.fromJson[ConversionRequest](conversionRequestJson) shouldBe conversionRequest
+    }
+
+    "convert a ConversionResponse json to ConversionResponse" in {}
+
+    "throw an exception when trying to convert a ConversionRequest json to a ConversionResponse object" in {}
+  }
+
+  "toJson should" - {
+    "convert a ConversionRequest to json" in {}
+
+    "convert a ConversionResponse to json" in {}
+  }
+
 }
 
 object JsonConverterJacksonTest {
@@ -53,6 +72,23 @@ object JsonConverterJacksonTest {
           "second"  -> "Kings Cross",
           "first"   -> "12 Watergarden")
   )
+  val conversionRequest: ConversionRequest = ConversionRequest("GBP", "EUR", 102.6)
+  val conversionRequestJson: String =
+    """
+      |{
+      |"fromCurrency": "GBP",
+      |"toCurrency" : "EUR","amount" : 102.6
+      |}
+    """.stripMargin
+  val conversionResponse: ConversionResponse = ConversionResponse(1.11, 113.886, 102.6)
+  val conversionResponseJson: String =
+    """
+      |{
+      |"exchange" : 1.11,
+      |"amount" : 113.886,
+      |"original" : 102.6
+      |}
+    """.stripMargin
 
   private def readFile(fileName: String): InputStream = getClass.getResourceAsStream(fileName)
 }

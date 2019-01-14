@@ -53,5 +53,11 @@ class JsonConverterJackson extends JsonConverter {
   private def arrayNodeToList(jsonNode: ArrayNode): List[Any] = {
     jsonNode.iterator().asScala.map(nodeToAny).toList
   }
+  override def fromJson[ToType <: Manifest[ToType]](json: String): ToType = {
+    mapper.readValue[ToType](json)
+  }
 
+  override def toJson(obj: Any): String = {
+    mapper.writeValueAsString(obj)
+  }
 }
