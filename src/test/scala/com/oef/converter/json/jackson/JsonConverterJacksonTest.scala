@@ -1,6 +1,7 @@
 package com.oef.converter.json.jackson
 import java.io.InputStream
 
+import com.fasterxml.jackson.core.JsonParseException
 import com.oef.converter.UnitSpec
 
 class JsonConverterJacksonTest extends UnitSpec {
@@ -15,6 +16,10 @@ class JsonConverterJacksonTest extends UnitSpec {
 
     "return an IllegalArgumentException for an empty input" in {
       a[IllegalArgumentException] should be thrownBy jsonConverter.jsonToMap(emptyFile)
+    }
+
+    "return a JsonParseException for a not valid json" in {
+      a[JsonParseException] should be thrownBy jsonConverter.jsonToMap(invalidJson)
     }
 
   }

@@ -24,6 +24,8 @@ libraryDependencies ++= {
   val scalaTestVersion = "3.0.5"
   val scalaMockVersion = "3.6.0"
   Seq(
+    "com.fasterxml.jackson.core" % "jackson-databind" % "2.9.8",
+    "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.9.8",    
     "org.scalatest" %% "scalatest" % scalaTestVersion % Test,
     "org.scalamock" %% "scalamock-scalatest-support" % scalaMockVersion % Test,
   )
