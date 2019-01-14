@@ -5,4 +5,4 @@ jdk:
 - oraclejdk8
 script:
   - sbt dependencyUpdates scalafmtCheck
-  - sbt clean coverage test
+  - sbt clean coverage test coverageReport
