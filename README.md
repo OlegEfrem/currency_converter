@@ -20,13 +20,14 @@ It's behaviour is defined by the API Integration test found [here](/src/test/sca
 ```aidl
 [info] RestApiTest:
 [info] restApi should
+[info] - respond with HTTP-200 OK when submitting valid currency conversions
 [info] - respond with HTTP-404 Not Found for a non existing path
 [info] - respond with HTTP-405 Method Not Allowed for a non supported HTTP method
-[info] - respond with HTTP-200 OK when submitting valid currency conversions
-[info] - respond with HTTP-400 Bad Request in case of an class com.oef.converter.currency.service.external.exception.InvalidCurrencyException
-[info] - respond with HTTP-502 Bad Gateway in case of an class com.oef.converter.currency.service.external.exception.InvalidCurrencyException
-[info] - respond with HTTP-404 Not Found in case of an class com.oef.converter.currency.service.external.exception.InvalidCurrencyException
-[info] - respond with HTTP-500 Internal Server Error in case of an class com.oef.converter.currency.service.external.exception.InvalidCurrencyException
+[info] - respond with HTTP-400 Bad Request in case of an InvalidCurrencyException
+[info] - respond with HTTP-502 Bad Gateway in case of a RatesApiException
+[info] - respond with HTTP-404 Not Found in case of a CurrencyNotFoundException
+[info] - respond with HTTP-500 Internal Server Error in case of a generic Exception
+
 ```
 ## Run application
 To run application, call:

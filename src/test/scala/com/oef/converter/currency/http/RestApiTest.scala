@@ -13,6 +13,14 @@ class RestApiTest extends ApiSpec {
 
   "restApi should" - {
 
+    s"respond with HTTP-$OK when submitting valid currency conversions" in {
+      currencyConverter.convert _ when conversionRequest returns Future.successful(conversionResponse)
+      Post(generalUrl, requestEntity) ~> restApi.routes ~> check {
+        status shouldBe OK
+        responseAs[String] shouldBe conversionResponseJson
+      }
+    }
+
     s"respond with HTTP-$NotFound for a non existing path" in {
       Post("/non/existing/") ~> restApi.routes ~> check {
         status shouldBe NotFound
@@ -27,27 +35,19 @@ class RestApiTest extends ApiSpec {
       }
     }
 
-    s"respond with HTTP-$OK when submitting valid currency conversions" in {
-      currencyConverter.convert _ when conversionRequest returns Future.successful(conversionResponse)
-      Post(generalUrl, requestEntity) ~> restApi.routes ~> check {
-        status shouldBe OK
-        responseAs[String] shouldBe conversionResponseJson
-      }
-    }
-
-    s"respond with HTTP-$BadRequest in case of an ${classOf[InvalidCurrencyException]}" in {
+    s"respond with HTTP-$BadRequest in case of an ${classOf[InvalidCurrencyException].getSimpleName}" in {
       verifyExeptionMappedToCode(InvalidCurrencyException("some error"), BadRequest)
     }
 
-    s"respond with HTTP-$BadGateway in case of an ${classOf[InvalidCurrencyException]}" in {
+    s"respond with HTTP-$BadGateway in case of a ${classOf[RatesApiException].getSimpleName}" in {
       verifyExeptionMappedToCode(RatesApiException("some error"), BadGateway)
     }
 
-    s"respond with HTTP-$NotFound in case of an ${classOf[InvalidCurrencyException]}" in {
+    s"respond with HTTP-$NotFound in case of a ${classOf[CurrencyNotFoundException].getSimpleName}" in {
       verifyExeptionMappedToCode(CurrencyNotFoundException("some error"), NotFound)
     }
 
-    s"respond with HTTP-$InternalServerError in case of an ${classOf[InvalidCurrencyException]}" in {
+    s"respond with HTTP-$InternalServerError in case of a generic ${classOf[Exception].getSimpleName}" in {
       verifyExeptionMappedToCode(new Exception("some error"), InternalServerError)
     }
 
