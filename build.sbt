@@ -63,7 +63,7 @@ coverageEnabled := true
 
 coverageHighlighting := true
 
-coverageMinimum := 80
+coverageMinimum := 75
 
 coverageFailOnMinimum := true
 

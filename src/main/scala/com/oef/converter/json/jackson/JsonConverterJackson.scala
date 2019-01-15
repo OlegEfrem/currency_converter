@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode
 import com.fasterxml.jackson.databind.{DeserializationFeature, JsonNode, ObjectMapper}
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import com.fasterxml.jackson.module.scala.experimental.ScalaObjectMapper
-import com.oef.converter.config.Configuration
+import com.oef.converter.config.SerDeConfig
 import com.oef.converter.json.JsonConverter
 
 import scala.annotation.tailrec
@@ -16,7 +16,7 @@ import scala.collection.immutable.ListMap
 object JsonConverterJackson extends JsonConverter {
   private val mapper = new ObjectMapper() with ScalaObjectMapper
   mapper.registerModule(DefaultScalaModule)
-  mapper.setDateFormat(Configuration.dateFormat)
+  mapper.setDateFormat(SerDeConfig.dateFormat)
   mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
 
   def jsonToMap(json: InputStream): Map[String, Any] = {

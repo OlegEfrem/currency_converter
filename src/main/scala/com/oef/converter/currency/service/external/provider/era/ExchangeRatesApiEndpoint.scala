@@ -22,7 +22,7 @@ class ExchangeRatesApiEndpoint() extends ActorContext {
   }
 
   private def error(url: String, code: StatusCode, message: String): RatesApiException = {
-    RatesApiException(s"error calling url: $url, status code: $code, message: $message")
+    RatesApiException(s"Upstream server responded with status code: $code, message: $message")
   }
 
 }

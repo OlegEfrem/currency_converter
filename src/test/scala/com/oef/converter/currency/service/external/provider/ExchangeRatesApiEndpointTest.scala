@@ -1,11 +1,7 @@
 package com.oef.converter.currency.service.external.provider
 
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.Currency
-
 import com.oef.converter.UnitSpec
-import com.oef.converter.config.Configuration
 import com.oef.converter.currency.service.external.exception.RatesApiException
 import com.oef.converter.currency.service.external.provider.era.ExchangeRatesApiEndpoint
 
@@ -16,7 +12,7 @@ class ExchangeRatesApiEndpointTest extends UnitSpec {
 
     "return the rate for an existing currency" in {
       endpoints.httpGet(Currency.getInstance("GBP"), Currency.getInstance("EUR")).futureValue should
-        include(s""""date":"${LocalDate.now.format(DateTimeFormatter.ofPattern(Configuration.datePattern))}""")
+        include(s""""base":"GBP"""")
     }
 
     "return an error for non supported currency" in {
