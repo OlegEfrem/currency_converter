@@ -6,7 +6,6 @@ import com.oef.converter.currency.model.{ConversionRequest, ConversionResponse}
 import com.oef.converter.currency.service.CurrencyConverter
 import com.oef.converter.currency.service.external.exception.{CurrencyNotFoundException, InvalidCurrencyException, RatesApiException}
 import com.oef.converter.json.JsonConverter
-
 import scala.concurrent.Future
 
 class RestApiTest extends ApiSpec {
