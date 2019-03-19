@@ -21,11 +21,11 @@ scalacOptions ++=
   )
 
 libraryDependencies ++= {
-  val scalaTestVersion = "3.0.5"
+  val scalaTestVersion = "3.0.7"
   val scalaMockVersion = "3.6.0"
   val jacksonVersion = "2.9.8"
   val akkaHttpVersion = "10.1.7"
-  val akkaVersion = "2.5.19"
+  val akkaVersion = "2.5.21"
   Seq(
     "com.fasterxml.jackson.datatype" % "jackson-datatype-jsr310" % jacksonVersion,
     "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion,
