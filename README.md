@@ -3,7 +3,7 @@
 # About
 * This is a Currency Conversion system implementation of the requirements described [here](Assignment.pdf);
 * Live app is deployed on heroku [here](https://currency-converter-oef.herokuapp.com/v1/api/convert/):
-  - accepts POST request with json body:
+  - accepts POST request to https://currency-converter-oef.herokuapp.com/v1/api/convert/ with json body:
   ```json
     {"fromCurrency": "GBP","toCurrency":"EUR","amount":100}
     ```
